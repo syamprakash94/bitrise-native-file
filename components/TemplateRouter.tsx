@@ -42,6 +42,7 @@ const TemplateRouter: React.FC = () => {
   const templateType = TEMPLATE_CONFIG.type;
   
   console.log('TemplateRouter - templateType:', templateType);
+  console.log('dataurl', '{{DATA_URL}}');
   
   // Check if replacement failed
   const isReplacementFailed = templateType.includes('{{') && templateType.includes('}}');
