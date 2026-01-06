@@ -4,6 +4,8 @@ import BusinessTemplate from './BusinessTemplate';
 import EcommerceTemplate from './EcommerceTemplate';
 import SocialTemplate from './SocialTemplate';
 import PortfolioTemplate from './PortfolioTemplate';
+import { PortfolioAppData } from './api/models/portfolioModel';
+import { getMeditationDetails } from './api/apiCalls';
 
 // Simple template configuration
 // This will be replaced by Bitrise during build
@@ -40,9 +42,14 @@ const TemplateRouter: React.FC = () => {
   console.log('TEMPLATE_TYPE', '{{TEMPLATE_TYPE}}');
   // Get template type
   const templateType = TEMPLATE_CONFIG.type;
+
+
+ 
   
   console.log('TemplateRouter - templateType:', templateType);
   console.log('dataurl', '{{DATA_URL}}');
+
+
   
   // Check if replacement failed
   const isReplacementFailed = templateType.includes('{{') && templateType.includes('}}');
@@ -52,6 +59,22 @@ const TemplateRouter: React.FC = () => {
   
   console.log('TemplateRouter - isReplacementFailed:', isReplacementFailed);
   console.log('TemplateRouter - actualTemplateType:', actualTemplateType);
+
+   const [portfolioData, setPortfolioData] =
+    React.useState<PortfolioAppData | null>(null);
+
+  React.useEffect(() => {
+    if (actualTemplateType !== "portfolio") return;
+
+    getMeditationDetails()
+      .then((data) => {
+        console.log("portfolio data", data);
+        setPortfolioData(data);
+      })
+      .catch((err) => {
+        console.error("Failed to load portfolio", err);
+      });
+  }, [actualTemplateType]);
 
   // Render appropriate template
   if (actualTemplateType === 'business') {
@@ -86,13 +109,14 @@ const TemplateRouter: React.FC = () => {
     );
   }
   
-  if (actualTemplateType === 'portfolio') {
+if (actualTemplateType === "portfolio") {
     return (
       <PortfolioTemplate
-        name={TEMPLATE_CONFIG.portfolio.name}
-        profession={TEMPLATE_CONFIG.portfolio.profession}
-        bio={TEMPLATE_CONFIG.portfolio.bio}
-        primaryColor={TEMPLATE_CONFIG.portfolio.primaryColor}
+        name={portfolioData?.formData?.portfolioName ?? "Portfolio"}
+        blog={portfolioData?.formData?.blogs ?? []}
+        // profession={TEMPLATE_CONFIG.portfolio.profession}
+        // bio={TEMPLATE_CONFIG.portfolio.bio}
+        primaryColor={portfolioData?.formData?.portfolioPrimaryColor ?? "#000"}
       />
     );
   }

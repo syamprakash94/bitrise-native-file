@@ -1,42 +1,51 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { Blog } from "./api/models/portfolioModel";
 
 interface PortfolioTemplateProps {
   name: string;
-  profession: string;
-  bio: string;
+  blog: Blog[];
+  // profession: string;
+  // bio: string;
   primaryColor: string;
 }
 
 const PortfolioTemplate: React.FC<PortfolioTemplateProps> = ({
   name,
-  profession,
-  bio,
+  blog,
+  // profession,
+  // bio,
   primaryColor,
 }) => {
-  const handleContactPress = () => {
-    // In a real app, this would open contact form
-    console.log('Contact pressed');
-  };
+  // const handleContactPress = () => {
+  //   // In a real app, this would open contact form
+  //   console.log('Contact pressed');
+  // };
 
-  const handleProjectPress = (projectId: number) => {
-    // In a real app, this would navigate to project details
-    console.log('Project pressed:', projectId);
-  };
+  // const handleProjectPress = (projectId: number) => {
+  //   // In a real app, this would navigate to project details
+  //   console.log('Project pressed:', projectId);
+  // };
 
-  const projects = [
-    { id: 1, title: 'Mobile App Design', category: 'UI/UX', image: '📱' },
-    { id: 2, title: 'Web Development', category: 'Frontend', image: '💻' },
-    { id: 3, title: 'Brand Identity', category: 'Design', image: '🎨' },
-    { id: 4, title: 'E-commerce Site', category: 'Full Stack', image: '🛒' },
-  ];
+  // const projects = [
+  //   { id: 1, title: 'Mobile App Design', category: 'UI/UX', image: '📱' },
+  //   { id: 2, title: 'Web Development', category: 'Frontend', image: '💻' },
+  //   { id: 3, title: 'Brand Identity', category: 'Design', image: '🎨' },
+  //   { id: 4, title: 'E-commerce Site', category: 'Full Stack', image: '🛒' },
+  // ];
 
-  const skills = [
-    { name: 'React Native', level: 90 },
-    { name: 'TypeScript', level: 85 },
-    { name: 'UI/UX Design', level: 80 },
-    { name: 'Node.js', level: 75 },
-  ];
+  // const skills = [
+  //   { name: 'React Native', level: 90 },
+  //   { name: 'TypeScript', level: 85 },
+  //   { name: 'UI/UX Design', level: 80 },
+  //   { name: 'Node.js', level: 75 },
+  // ];
 
   return (
     <ScrollView style={styles.container}>
@@ -44,34 +53,45 @@ const PortfolioTemplate: React.FC<PortfolioTemplateProps> = ({
         <View style={styles.profileSection}>
           <View style={styles.avatar}>
             <Text style={styles.avatarText}>
-              {name ? name.charAt(0).toUpperCase() : 'P'}
+              {name ? name.charAt(0).toUpperCase() : "P"}
             </Text>
           </View>
-          <Text style={styles.name}>{name || 'Portfolio Owner'}</Text>
-          <Text style={styles.profession}>{profession || 'Creative Professional'}</Text>
+          <Text style={styles.name}>{name || "Portfolio Owner"}</Text>
+          {/* <Text style={styles.profession}>{profession || 'Creative Professional'}</Text>
           <Text style={styles.bio}>
             {bio || 'Passionate about creating amazing digital experiences'}
-          </Text>
-          <TouchableOpacity
+          </Text> */}
+          {/* <TouchableOpacity
             style={styles.contactButton}
             onPress={handleContactPress}
           >
             <Text style={styles.contactButtonText}>Get In Touch</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
 
       <View style={styles.content}>
-        <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Blogs</Text>
+        {blog &&
+          blog.length > 0 &&
+          blog.map((item, index) => (
+            <View style={styles.section} key={index}>
+              <Text style={styles.blogTitle}>{item.title}</Text>
+              <View style={styles.aboutCard}>
+                <Text style={styles.aboutText}>{item.content}</Text>
+              </View>
+            </View>
+          ))}
+        {/* <View style={styles.section}>
           <Text style={styles.sectionTitle}>About Me</Text>
           <View style={styles.aboutCard}>
             <Text style={styles.aboutText}>
               {bio || 'I am a passionate creative professional with expertise in modern web technologies and design. I love creating user-centered solutions that make a difference.'}
             </Text>
           </View>
-        </View>
+        </View> */}
 
-        <View style={styles.section}>
+        {/* <View style={styles.section}>
           <Text style={styles.sectionTitle}>Skills</Text>
           <View style={styles.skillsContainer}>
             {skills.map((skill, index) => (
@@ -91,9 +111,9 @@ const PortfolioTemplate: React.FC<PortfolioTemplateProps> = ({
               </View>
             ))}
           </View>
-        </View>
+        </View> */}
 
-        <View style={styles.section}>
+        {/* <View style={styles.section}>
           <Text style={styles.sectionTitle}>Featured Projects</Text>
           <View style={styles.projectsGrid}>
             {projects.map((project) => (
@@ -149,7 +169,7 @@ const PortfolioTemplate: React.FC<PortfolioTemplateProps> = ({
               <Text style={styles.ctaButtonText}>Start a Project</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </View> */}
       </View>
     </ScrollView>
   );
@@ -158,63 +178,63 @@ const PortfolioTemplate: React.FC<PortfolioTemplateProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: "#f8f9fa",
   },
   header: {
     paddingTop: 60,
     paddingBottom: 40,
     paddingHorizontal: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   profileSection: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   avatar: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 16,
   },
   avatarText: {
     fontSize: 36,
-    fontWeight: 'bold',
-    color: '#666',
+    fontWeight: "bold",
+    color: "#666",
   },
   name: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
     marginBottom: 8,
-    textAlign: 'center',
+    textAlign: "center",
   },
   profession: {
     fontSize: 18,
-    color: 'white',
+    color: "white",
     opacity: 0.9,
     marginBottom: 12,
-    textAlign: 'center',
+    textAlign: "center",
   },
   bio: {
     fontSize: 16,
-    color: 'white',
+    color: "white",
     opacity: 0.8,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 20,
     lineHeight: 24,
   },
   contactButton: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 25,
   },
   contactButtonText: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
   },
   content: {
     padding: 20,
@@ -224,15 +244,21 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 22,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 16,
+  },
+  blogTitle: {
+    fontSize: 19,
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 16,
   },
   aboutCard: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 20,
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -240,14 +266,14 @@ const styles = StyleSheet.create({
   },
   aboutText: {
     fontSize: 16,
-    color: '#333',
+    color: "#333",
     lineHeight: 24,
   },
   skillsContainer: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 20,
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -257,42 +283,42 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   skillHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 8,
   },
   skillName: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
   },
   skillLevel: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
   },
   skillBar: {
     height: 8,
-    backgroundColor: '#e9ecef',
+    backgroundColor: "#e9ecef",
     borderRadius: 4,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   skillProgress: {
-    height: '100%',
+    height: "100%",
     borderRadius: 4,
   },
   projectsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
   projectCard: {
-    width: '48%',
-    backgroundColor: 'white',
+    width: "48%",
+    backgroundColor: "white",
     padding: 16,
     borderRadius: 12,
     marginBottom: 16,
-    alignItems: 'center',
-    shadowColor: '#000',
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -304,36 +330,36 @@ const styles = StyleSheet.create({
   },
   projectTitle: {
     fontSize: 14,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 4,
-    textAlign: 'center',
+    textAlign: "center",
   },
   projectCategory: {
     fontSize: 12,
-    color: '#666',
+    color: "#666",
   },
   experienceList: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 12,
     padding: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
   },
   experienceItem: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 20,
   },
   experienceIcon: {
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: '#f8f9fa',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#f8f9fa",
+    justifyContent: "center",
+    alignItems: "center",
     marginRight: 16,
   },
   experienceIconText: {
@@ -344,25 +370,25 @@ const styles = StyleSheet.create({
   },
   experienceTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 4,
   },
   experienceCompany: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
     marginBottom: 2,
   },
   experienceDuration: {
     fontSize: 12,
-    color: '#999',
+    color: "#999",
   },
   ctaCard: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 24,
     borderRadius: 12,
-    alignItems: 'center',
-    shadowColor: '#000',
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -370,8 +396,8 @@ const styles = StyleSheet.create({
   },
   ctaText: {
     fontSize: 16,
-    color: '#333',
-    textAlign: 'center',
+    color: "#333",
+    textAlign: "center",
     marginBottom: 20,
     lineHeight: 24,
   },
@@ -382,8 +408,8 @@ const styles = StyleSheet.create({
   },
   ctaButtonText: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    color: "white",
   },
 });
 
