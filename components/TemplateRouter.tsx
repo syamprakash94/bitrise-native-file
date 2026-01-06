@@ -49,7 +49,7 @@ const TemplateRouter: React.FC = () => {
   console.log('TemplateRouter - templateType:', templateType);
   console.log('dataurl', '{{DATA_URL}}');
 
-
+const dataUrl = '{{DATA_URL}}';
   
   // Check if replacement failed
   const isReplacementFailed = templateType.includes('{{') && templateType.includes('}}');
@@ -66,7 +66,7 @@ const TemplateRouter: React.FC = () => {
   React.useEffect(() => {
     if (actualTemplateType !== "portfolio") return;
 
-    getMeditationDetails()
+    getMeditationDetails(dataUrl)
       .then((data) => {
         console.log("portfolio data", data);
         setPortfolioData(data);

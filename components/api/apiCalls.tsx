@@ -9,10 +9,10 @@ export type ResponseData = {
   error?: any;
 };
 
-export const getMeditationDetails = async (): Promise<PortfolioAppData> => {
+export const getMeditationDetails = async (url: string): Promise<PortfolioAppData> => {
   const apiData = {
     method: "get",
-    endPoint: `${baseURL}`,
+    endPoint: `${url}`,
     params: {},
   };
 
